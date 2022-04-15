@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CloneInsta!{% endblock %}
+
+{% block body %}
+
+<div class="wrap">
+    <div id="actu_container">
+        {% for post in posts %}
+            <article id="post_actu">
+                <div class="post_header">
+                    <div class="left_header">
+                        <img class="profil_user" src="" alt="photo de profil">
+                            
+                        <div class="post_info">
+                            <h3>Titre de l'article</h3>
+                            <p>{{ post.postsPlace }}</p>
+                        </div>
+                    </div>
+
+                    <div class="right_header">
+                        <a href=""><i class="fa-solid fa-ellipsis"></i></a>
+                    </div>
+                </div>
+
+                <div id="post_picture">
+                    <img class="profil_user" src="" alt="photo du post">
+                </div>
+
+                <div id="post_description">
+                    <p>{{ post.postsDescribe }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
+    <div id="footer_container">
+        <p>&copy; 2022 INSTACLONE par Pinto Sanhudo Jody</p>
+    </div>
+
+</div>
+{% endblock %}
