@@ -1,0 +1,26 @@
+#home_container{
+    display: flex;
+    flex-flow: row nowrap;
+}
+#home_container #footer_container{
+    /*position: fixed;*/
+}
+
+#actu_container{
+    display: flex;
+    flex-flow: column nowrap;
+    max-width: 60%;
+    gap: 1.5rem;
+    padding: 3rem 0;
+    overflow-x: hidden;
+}
+
+#actu_container #post_actu{
+    border: 1px solid rgba(82, 82, 82, 0.26);
+    border-radius: 10px;
+}
+
+#actu_container #post_actu #post_picture img{
+    width: 100%;
+    max-height: 550px;
+}

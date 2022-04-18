@@ -29,6 +29,16 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //On recupere les img
+            $picture = $form->get('posts_picture')->getData();
+            $pictureRenameFile = md5(uniqid()).'.'.$picture->guessExtension();
+            //On copie le fichier dans uploads
+            $picture->move(
+              $this->getParameter('picture_directory'),
+              $pictureRenameFile
+            );
+            //On stock le nom du fichier dans la bdd
+            $post->setPostsPicture($pictureRenameFile);
             $post->setCreatedAt(new \DateTimeImmutable('now'));
             $postsRepository->add($post);
             return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);

@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CloneInsta!{% endblock %}
+{% block title %}CloneInsta{% endblock %}
+{% block stylesheets %}<link href="{{ asset('styles/css/home.css') }}" rel="stylesheet"/>{% endblock %}
 
 {% block body %}
 
-<div class="wrap">
+<div class="wrap" id="home_container">
     <div id="actu_container">
         {% for post in posts %}
             <article id="post_actu">
@@ -24,7 +25,7 @@
                 </div>
 
                 <div id="post_picture">
-                    <img class="profil_user" src="" alt="photo du post">
+                    <img class="profil_user" src="/uploads/{{ post.postsPicture }}" alt="photo du post">
                 </div>
 
                 <div id="post_description">

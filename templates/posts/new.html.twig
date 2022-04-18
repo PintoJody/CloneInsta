@@ -5,7 +5,22 @@
 {% block body %}
     <h1>Create new Posts</h1>
 
-    {{ include('posts/_form.html.twig') }}
+    {{ form_start(form) }}
+            <div class="form_container">
+                <div class="form_input">
+                    {{ form_row(form.posts_picture, {'attr': {'placeholder': "Ajouter une photo"}}) }}
+                </div>
 
-    <a href="{{ path('app_posts_index') }}">back to list</a>
+                <div class="form_input">
+                    {{ form_row(form.posts_place, {'attr': {'placeholder': "Lieu"}}) }}
+                </div>
+
+                <div class="form_input">
+                    {{ form_row(form.posts_describe, {'attr': {'placeholder': "Description"}}) }}
+                </div>
+            </div>
+
+        <button class="btn">{{ button_label|default('Ajouter le post') }}</button>
+    {{ form_end(form) }}
+
 {% endblock %}
