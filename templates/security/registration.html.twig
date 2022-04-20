@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Inscription</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.name, {'label': 'Nom', 'attr': {
+        'placeholder': 'Votre nom'}}) }}
+
+    {{ form_row(form.surname, {'label': 'Prénom', 'attr': {
+        'placeholder': 'Votre prénom'}}) }}
+
+    {{ form_row(form.biography, {'label': 'Biographie', 'attr': {
+        'placeholder': 'Bio'}}) }}
+
+    {{ form_row(form.pseudo, {'label': 'Pseudo', 'attr': {
+        'placeholder': 'Votre pseudo'}}) }}
+
+    {{ form_row(form.email, {'attr': {
+        'placeholder': 'Email'}}) }}
+
+    {{ form_row(form.password, {'attr': {
+        'placeholder': '*******'}}) }}
+
+    {{ form_row(form.confirm_password, {'attr': {
+        'placeholder': '*******'}}) }}
+
+        <button class="btn">{{ button_label|default('Inscripton') }}</button>
+    {{ form_end(form) }}
+{% endblock %}

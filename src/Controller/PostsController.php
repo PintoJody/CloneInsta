@@ -9,10 +9,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/post')]
 class PostsController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     #[Route('/post', name: 'app_posts_index', methods: ['GET'])]
     public function index(PostsRepository $postsRepository): Response
     {
@@ -27,6 +35,7 @@ class PostsController extends AbstractController
         $post = new Posts();
         $form = $this->createForm(PostsType::class, $post);
         $form->handleRequest($request);
+        $user = $this->security->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             //On recupere les img
@@ -40,6 +49,9 @@ class PostsController extends AbstractController
             //On stock le nom du fichier dans la bdd
             $post->setPostsPicture($pictureRenameFile);
             $post->setCreatedAt(new \DateTimeImmutable('now'));
+            //On fait le lien avec le créateur du post
+            $post->setUser($user);
+
             $postsRepository->add($post);
             return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
         }
