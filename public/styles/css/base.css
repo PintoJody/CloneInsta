@@ -25,6 +25,13 @@ ul, li{
     max-width: 975px;
     margin: 0 auto;
 }
+
+.separator{
+    height: 1px;
+    width: 100%;
+    background-color: var(--greyBorder);
+}
+
 #nav_container{
     border-bottom: 1px solid black;
 }

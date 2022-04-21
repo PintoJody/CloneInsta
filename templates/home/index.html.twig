@@ -13,7 +13,7 @@
                         <img class="profil_user" src="/img/default_user.png" alt="photo de profil">
                             
                         <div class="post_info">
-                            <h3>Pseudo</h3>
+                            <h3>{{ post.user.pseudo }}</h3>
                             <p>{{ post.postsPlace }}</p>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                 </div>
 
                 <div id="post_description">
-                    <p><a href="">Pseudo</a> {{ post.postsDescribe }}</p>
+                    <p><a href="">{{ post.user.pseudo }}</a> {{ post.postsDescribe }}</p>
                 </div>
             </article>
         {% endfor %}

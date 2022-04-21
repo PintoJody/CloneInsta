@@ -29,6 +29,18 @@ class PostsController extends AbstractController
         ]);
     }
 
+    #[Route('/profile', name: 'app_profile', methods: ['GET'])]
+    public function findByUserId(PostsRepository $postsRepository): Response
+    {
+        $user = $this->security->getUser();
+        $userPost = $postsRepository->findBy(['user' => $user]);
+
+        return $this->render('users/index.html.twig', [
+            'posts' => $userPost,
+            'user' => $user,
+        ]);
+    }
+
     #[Route('/new', name: 'app_posts_new', methods: ['GET', 'POST'])]
     public function new(Request $request, PostsRepository $postsRepository): Response
     {
@@ -96,4 +108,5 @@ class PostsController extends AbstractController
 
         return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

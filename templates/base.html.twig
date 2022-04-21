@@ -32,7 +32,7 @@
                         <ul>
                             <li><a href="#"><i class="fa-solid fa-house"></i></a></li>
                             <li><a href="{{ path('app_posts_new') }}"><i class="fa-solid fa-square-plus"></i></a></li>
-                            <li><a href="#"><i class="fa-solid fa-user-astronaut"></i></a></li>
+                            <li><a href="{{ path('app_profile') }}"><i class="fa-solid fa-user-astronaut"></i></a></li>
                             {% if not app.user %}
                                 <li><a href="{{ path('login_security') }}">Connexion</a></li>
                             {% else %}
