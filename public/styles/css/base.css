@@ -33,7 +33,7 @@ ul, li{
 }
 
 #nav_container{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--greyBorder);
 }
 
 #nav_container #navbar{

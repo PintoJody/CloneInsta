@@ -30,7 +30,7 @@
                 <div class="gallery_item">
                     {% for post in posts %}
                         <div class="box_img">
-                            <a href=""><img src="/uploads/{{ post.postsPicture }}" alt="image de la gallerie"></a>
+                            <a href=""><img src="{{ asset('/uploads/' ~ post.postsPicture ) | imagine_filter('minProfilePicture') }}" alt="image de la gallerie"></a>
                         </div>
                     {% endfor %}
                 </div>

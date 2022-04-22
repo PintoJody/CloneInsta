@@ -24,7 +24,7 @@
                 </div>
 
                 <div id="post_picture">
-                    <img class="profil_user" src="/uploads/{{ post.postsPicture }}" alt="photo du post">
+                    <img class="profil_user" src="{{ asset('/uploads/' ~ post.postsPicture ) | imagine_filter('actuPicture') }}" alt="photo du post">
                 </div>
 
                 <div id="post_description">
