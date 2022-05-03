@@ -36,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255)]
     /**
-     * @Assert\Email
+     * @Assert\Email(groups={"registration"})
      */
     private $email;
 
@@ -44,16 +44,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @Assert\Length(
      *      min = 6,
-     *      max = 50,
      *      minMessage = "Le mot de passe doit faire {{ limit }} charactères minimum",
-     *      maxMessage = "Le mot de passe doit faire {{ limit }} charactères maximum",
+     *
      * )
-     * @Assert\EqualTo(propertyPath="confirm_password", message="Votre mot de passe doit être identique")
+     * @Assert\EqualTo(
+     *     propertyPath="confirm_password",
+     *     message="Votre mot de passe doit être identique",
+     *     groups={"registration"}
+     *     )
      */
     private $password;
 
     /**
-     * @Assert\EqualTo(propertyPath="password", message="Le mot de passe doit être identique")
+     * @Assert\EqualTo(
+     *     propertyPath="password",
+     *     message="Le mot de passe doit être identique",
+     *     groups={"registration"}
+     *     )
      */
     public $confirm_password;
 

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit profile{% endblock %}
+{% block stylesheets %}<link href="{{ asset('styles/css/profile.css') }}" rel="stylesheet"/>{% endblock %}
+
+{% block body %}
+
+<h1>Modification des infos</h1>
+
+{{ form(form) }}
+
+{% endblock %}
