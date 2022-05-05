@@ -31,7 +31,16 @@ class UsersController extends AbstractController
 
 
         if($form->isSubmitted() && $form->isValid()){
-
+            //On recupere les img
+            $picture = $form->get('profile_picture')->getData();
+            $pictureRenameFile = md5(uniqid()).'.'.$picture->guessExtension();
+            //On copie le fichier dans uploads
+            $picture->move(
+                $this->getParameter('picture_directory'),
+                $pictureRenameFile
+            );
+            //On stock le nom du fichier dans la bdd
+            $user->setProfilePicture($pictureRenameFile);
             $userRepository->add($user);
 
             $this->addFlash(

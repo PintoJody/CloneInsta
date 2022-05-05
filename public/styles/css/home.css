@@ -1,9 +1,30 @@
 #home_container{
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-between;
 }
 #home_container #footer_container{
     /*position: fixed;*/
+    padding: 3rem 0;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 2rem;
+}
+#footer_container .footer_profile{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+#footer_container .footer_profile .footer_profile_items{
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1.5rem;
+    align-items: center;
+}
+#footer_container .footer_profile .footer_profile_items img{
+    width: 70px;
+    border-radius: 50px;
 }
 
 #actu_container{
