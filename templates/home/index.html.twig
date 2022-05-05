@@ -55,7 +55,11 @@
         {% else %}
             <div class="footer_profile">
                 <div class="footer_profile_items">
+                {% if user.profilePicture is empty %}
+                    <img class="profil_user" src="/img/default_user.png" alt="photo de profil">
+                {% else %}
                     <img class="footer_profil_user" src="{{ asset('/uploads/' ~ user.profilePicture ) | imagine_filter('minProfilePicture') }}" alt="Photo de profil">
+                {% endif %}
                     <div class="footer_profile_info">
                         <h4>{{ user.pseudo }}</h4>
                         <p>{{ user.surname }} {{ user.name }}</p>
