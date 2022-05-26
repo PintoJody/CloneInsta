@@ -1,12 +1,55 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit profile{% endblock %}
-{% block stylesheets %}<link href="{{ asset('styles/css/profile.css') }}" rel="stylesheet"/>{% endblock %}
+{% block stylesheets %}
+<link href="{{ asset('styles/css/profile.css') }}" rel="stylesheet"/>
+<link href="{{ asset('styles/css/base.css') }}" rel="stylesheet"/>
+{% endblock %}
 
 {% block body %}
 
-<h1>Modification des infos</h1>
+<div class="edit_profile_container">
+    <h1>Modification des infos</h1>
 
-{{ form(form) }}
+    <div class="profile_form_wrap">
+
+        {# FORM PROFILE PICTURE #}
+        {{ form_start(formPicture) }}
+        <div class="formPictureContainer">
+            <div class="form_picture">
+                {{ form_row(formPicture.profile_picture) }}
+                {% if app.user.profilePicture is empty %}
+                    <img class="profil_user" src="/img/default_user.png" alt="photo de profil">
+                {% else %}
+                    <img class="profil_user" src="{{ asset('/uploads/' ~ app.user.profilePicture ) | imagine_filter('minProfilePicture') }}" alt="Photo de profil">
+                {% endif %}
+            </div>
+            <div>
+                {{ form_row(formPicture.submit) }}
+            </div>
+        </div>
+        {{ form_end(formPicture) }}
+
+        {# FORM INFO PROFILE #}
+        {{ form_start(form) }}
+        <div class="global_info_container">
+            <div class="form_edit_container">
+                <div class="form_info">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.surname) }}
+                    {{ form_row(form.pseudo) }}
+                    {{ form_row(form.biography) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_row(form.submit) }}
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+</div>
 
 {% endblock %}

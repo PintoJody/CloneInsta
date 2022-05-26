@@ -37,6 +37,9 @@
                             {% else %}
                                 <li><a href="{{ path('app_posts_new') }}"><i class="fa-solid fa-square-plus"></i></a></li>
                                 <li><a href="{{ path('app_profile') }}"><i class="fa-solid fa-user-astronaut"></i></a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('admin_posts') }}">Dashboard</a></li>
+                                {% endif %}
                                 <li><a href="{{ path('logout_security') }}">Deconnexion</a></li>
                             {% endif %}
                         </ul>

@@ -45,6 +45,16 @@
                 <div id="post_description">
                     <p><a href="">{{ post.user.pseudo }}</a> {{ post.postsDescribe }}</p>
                 </div>
+
+{#                <div id="post_comment">#}
+{#                    {{ form_start(comment_form) }}#}
+{#                    <div class="form_input">#}
+{#                        {{ form_row(comment_form.content) }}#}
+{#                    </div>#}
+{#                    <button class="btn">{{ button_label|default('Publier') }}</button>#}
+{#                    {{ form_end(comment_form) }}#}
+{#                </div>#}
+
             </article>
         {% endfor %}
     </div>

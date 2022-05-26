@@ -21,13 +21,6 @@ class PostsController extends AbstractController
         $this->security = $security;
     }
 
-    #[Route('/post', name: 'app_posts_index', methods: ['GET'])]
-    public function index(PostsRepository $postsRepository): Response
-    {
-        return $this->render('posts/index.html.twig', [
-            'posts' => $postsRepository->findAll(),
-        ]);
-    }
 
     #[Route('/profile', name: 'app_profile', methods: ['GET'])]
     public function findByUserId(PostsRepository $postsRepository): Response
@@ -65,7 +58,7 @@ class PostsController extends AbstractController
             $post->setUser($user);
 
             $postsRepository->add($post);
-            return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('posts/new.html.twig', [
@@ -90,7 +83,7 @@ class PostsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $postsRepository->add($post);
-            return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_posts', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('posts/edit.html.twig', [
@@ -106,7 +99,7 @@ class PostsController extends AbstractController
             $postsRepository->remove($post);
         }
 
-        return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_posts', [], Response::HTTP_SEE_OTHER);
     }
 
 }

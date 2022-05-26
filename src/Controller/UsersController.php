@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserProfilePictureType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,13 +27,27 @@ class UsersController extends AbstractController
             return $this->redirectToRoute("app_home");
         }
 
+        //EDIT GLOBAL INFO 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-
         if($form->isSubmitted() && $form->isValid()){
+            $userRepository->add($user);
+
+            $this->addFlash(
+                'success',
+                'Les informations ont bien été modifiées !'
+            );
+            return $this->redirectToRoute("app_profile");
+        }
+
+        //EDIT PROFILE PICTURE
+        $formPictureProfiles = $this->createForm(UserProfilePictureType::class, $user);
+        $formPictureProfiles->handleRequest($request);
+
+        if($formPictureProfiles->isSubmitted() && $formPictureProfiles->isValid()){
             //On recupere les img
-            $picture = $form->get('profile_picture')->getData();
+            $picture = $formPictureProfiles->get('profile_picture')->getData();
             $pictureRenameFile = md5(uniqid()).'.'.$picture->guessExtension();
             //On copie le fichier dans uploads
             $picture->move(
@@ -45,15 +60,15 @@ class UsersController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Les informations ont bien été modifiées !'
+                'Image modifiée !'
             );
-
-            return $this->redirectToRoute("app_profile");
-
+            return $this->redirect($request->getUri());
         }
+        
 
         return $this->render('users/editUser.html.twig', [
             'form' => $form->createView(),
+            'formPicture' => $formPictureProfiles->createView(),
         ]);
     }
 }

@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Connexion{% endblock %}
+{% block stylesheets %}<link href="{{ asset('styles/css/form.css') }}" rel="stylesheet"/>{% endblock %}
+
 {% block body %}
+
+<div class="form_user_container">
     <h1>Connexion</h1>
 
     <form action="{{ path('login_security') }}" method="post">
@@ -12,4 +17,6 @@
 
         <button type="submit" class="btn">{{ button_label|default('Connexion') }}</button>
     </form>
+</div>
+
 {% endblock %}

@@ -73,6 +73,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $profile_picture;
 
+    #[ORM\Column(type: 'json', nullable: true)]
+    private $roles = [];
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -166,8 +169,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
+        $roles = $this->roles;
         $roles[] = 'ROLE_USER';
-
+ 
         return array_unique($roles);
     }
 
@@ -214,6 +218,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfilePicture(?string $profile_picture): self
     {
         $this->profile_picture = $profile_picture;
+
+        return $this;
+    }
+
+    public function setRoles(?array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }

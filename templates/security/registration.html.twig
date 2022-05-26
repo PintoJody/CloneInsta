@@ -1,31 +1,39 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Inscription{% endblock %}
+{% block stylesheets %}<link href="{{ asset('styles/css/form.css') }}" rel="stylesheet"/>{% endblock %}
+
 {% block body %}
+
+<div class="form_user_container"> 
     <h1>Inscription</h1>
 
     {{ form_start(form) }}
-
-    {{ form_row(form.name, {'label': 'Nom', 'attr': {
+    
+    {{ form_row(form.name, {'label': false, 'attr': {
         'placeholder': 'Votre nom'}}) }}
 
-    {{ form_row(form.surname, {'label': 'Prénom', 'attr': {
+    {{ form_row(form.surname, {'label': false, 'attr': {
         'placeholder': 'Votre prénom'}}) }}
 
-    {{ form_row(form.biography, {'label': 'Biographie', 'attr': {
+    {{ form_row(form.biography, {'label': false, 'attr': {
         'placeholder': 'Bio'}}) }}
 
-    {{ form_row(form.pseudo, {'label': 'Pseudo', 'attr': {
+    {{ form_row(form.pseudo, {'label': false, 'attr': {
         'placeholder': 'Votre pseudo'}}) }}
 
-    {{ form_row(form.email, {'attr': {
+    {{ form_row(form.email, {'label': false, 'attr': {
         'placeholder': 'Email'}}) }}
 
-    {{ form_row(form.password, {'attr': {
-        'placeholder': '*******'}}) }}
+    {{ form_row(form.password, {'label': false, 'attr': {
+        'placeholder': 'Mot de passe'}}) }}
 
-    {{ form_row(form.confirm_password, {'attr': {
-        'placeholder': '*******'}}) }}
+    {{ form_row(form.confirm_password, {'label': false, 'attr': {
+        'placeholder': 'Confirmation mot de passe'}}) }}
 
-        <button class="btn">{{ button_label|default('Inscripton') }}</button>
+    <button class="btn">{{ button_label|default('Inscripton') }}</button>
+    
     {{ form_end(form) }}
+</div>
+
 {% endblock %}

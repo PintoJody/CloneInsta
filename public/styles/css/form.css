@@ -1,0 +1,52 @@
+
+/*LOGIN AND REGISTER FORM*/
+
+.form_user_container{
+    display: flex;
+    flex-flow: column nowrap;  
+    max-width: 300px;
+    margin: 0 auto;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    border: 1px solid var(--greyBorder);
+    border-radius: 10px;
+    padding: 2rem 0;
+}
+
+.form_user_container form .form_group{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.form_user_container form div{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .2rem;
+    padding: .2rem;
+}
+.form_user_container form div input{
+    padding: .6rem .3rem;
+    border-radius: 10px;
+    border: 1px solid var(--greyBorder);
+}
+
+.form_user_container form .form_group input{
+    padding: .6rem .3rem;
+    border-radius: 10px;
+    border: 1px solid var(--greyBorder);
+}
+
+.form_user_container form button{
+    padding: .6rem .3rem;
+    border-radius: 10px;
+    border: 1px solid var(--greyBorder);
+    font-weight: 600;
+    
+}
+.form_user_container form button:hover{
+    border: 1px solid black;
+    cursor: pointer;
+}
