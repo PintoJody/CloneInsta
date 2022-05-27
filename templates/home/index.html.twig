@@ -23,12 +23,12 @@
                 <div class="post_header">
                     <div class="left_header">
                         {% if post.user.profilePicture is empty %}
-                            <img class="profil_user" src="/img/default_user.png" alt="photo de profil">
+                            <a href="{{ path('app_profile_show', {'id': post.user.id}) }}"><img class="profil_user" src="/img/default_user.png" alt="photo de profil"></a>
                         {% else %}
-                            <img class="profil_user" src="{{ asset('/uploads/' ~ post.user.profilePicture ) | imagine_filter('minProfilePicture') }}" alt="Photo de profil">
+                            <a href="{{ path('app_profile_show', {'id': post.user.id}) }}"><img class="profil_user" src="{{ asset('/uploads/' ~ post.user.profilePicture ) | imagine_filter('minProfilePicture') }}" alt="Photo de profil"></a>
                         {% endif %}
                             <div class="post_info">
-                            <h3>{{ post.user.pseudo }}</h3>
+                            <a href="{{ path('app_profile_show', {'id': post.user.id}) }}"><h3>{{ post.user.pseudo }}</h3></a>
                             <p>{{ post.postsPlace }}</p>
                         </div>
                     </div>
@@ -43,17 +43,12 @@
                 </div>
 
                 <div id="post_description">
-                    <p><a href="">{{ post.user.pseudo }}</a> {{ post.postsDescribe }}</p>
+                    <p><a href="{{ path('app_profile_show', {'id': post.user.id}) }}">{{ post.user.pseudo }}</a> {{ post.postsDescribe }}</p>
                 </div>
 
-{#                <div id="post_comment">#}
-{#                    {{ form_start(comment_form) }}#}
-{#                    <div class="form_input">#}
-{#                        {{ form_row(comment_form.content) }}#}
-{#                    </div>#}
-{#                    <button class="btn">{{ button_label|default('Publier') }}</button>#}
-{#                    {{ form_end(comment_form) }}#}
-{#                </div>#}
+                {# <div id="post_comment_form">
+                   {{ form(comment_form_post) }}
+                </div> #}
 
             </article>
         {% endfor %}

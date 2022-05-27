@@ -76,9 +76,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json', nullable: true)]
     private $roles = [];
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
+    private $comments;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CommentPost::class)]
+    private $commentPosts;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->commentPosts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -225,6 +233,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(?array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommentPost>
+     */
+    public function getCommentPosts(): Collection
+    {
+        return $this->commentPosts;
+    }
+
+    public function addCommentPost(CommentPost $commentPost): self
+    {
+        if (!$this->commentPosts->contains($commentPost)) {
+            $this->commentPosts[] = $commentPost;
+            $commentPost->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentPost(CommentPost $commentPost): self
+    {
+        if ($this->commentPosts->removeElement($commentPost)) {
+            // set the owning side to null (unless already changed)
+            if ($commentPost->getUser() === $this) {
+                $commentPost->setUser(null);
+            }
+        }
 
         return $this;
     }

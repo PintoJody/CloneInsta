@@ -2,48 +2,32 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentRepository;
+use App\Repository\CommentPostRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CommentRepository::class)]
-class Comment
+#[ORM\Entity(repositoryClass: CommentPostRepository::class)]
+class CommentPost
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $author;
-
     #[ORM\Column(type: 'text')]
     private $content;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private $createdAt;
+    private $CreatedAt;
 
-    #[ORM\ManyToOne(targetEntity: Posts::class, inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Posts::class, inversedBy: 'commentPosts')]
     private $post;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'commentPosts')]
     private $user;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
     }
 
     public function getContent(): ?string
@@ -60,12 +44,12 @@ class Comment
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->createdAt;
+        return $this->CreatedAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTimeImmutable $CreatedAt): self
     {
-        $this->createdAt = $createdAt;
+        $this->CreatedAt = $CreatedAt;
 
         return $this;
     }

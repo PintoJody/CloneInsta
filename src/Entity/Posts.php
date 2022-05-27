@@ -35,9 +35,13 @@ class Posts
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
     private $comments;
 
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: CommentPost::class)]
+    private $commentPosts;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->commentPosts = new ArrayCollection();
     }
 
     public function __toString()
@@ -135,6 +139,36 @@ class Posts
             // set the owning side to null (unless already changed)
             if ($comment->getPost() === $this) {
                 $comment->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommentPost>
+     */
+    public function getCommentPosts(): Collection
+    {
+        return $this->commentPosts;
+    }
+
+    public function addCommentPost(CommentPost $commentPost): self
+    {
+        if (!$this->commentPosts->contains($commentPost)) {
+            $this->commentPosts[] = $commentPost;
+            $commentPost->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentPost(CommentPost $commentPost): self
+    {
+        if ($this->commentPosts->removeElement($commentPost)) {
+            // set the owning side to null (unless already changed)
+            if ($commentPost->getPost() === $this) {
+                $commentPost->setPost(null);
             }
         }
 

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile de {{ userShow.pseudo }}{% endblock %}
+{% block stylesheets %}<link href="{{ asset('styles/css/profile.css') }}" rel="stylesheet"/>{% endblock %}
+
+{% block body %}
+
+    <div class="back">
+        <a href="{{ path('app_home') }}"><i class="fa-solid fa-arrow-left"></i> Retour à l'accueil</a>
+    </div>
+
+    <div id="profile_container" class="wrap_nav">
+        <div id="header_profil">
+            <div class="user_profile_picture">
+                {% if userShow.profilePicture is empty %}
+                    <img class="profil_user" src="/img/default_user.png" alt="photo de profil">
+                {% else %}
+                    <img src="{{ asset('/uploads/' ~ userShow.profilePicture ) | imagine_filter('minProfilePicture') }}" alt="Photo de profil">
+                {% endif %}
+            </div>
+
+            <div class="user_info_container">
+                <div class="posts_info">
+                    <p>{{ userShow.surname }} {{ userShow.name }}</p>
+                </div>
+
+                <div class="posts_bio">
+                    <p>{{ userShow.biography }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div id="user_posts_container">
+            <div class="posts_gallery">
+                <div class="gallery_item">
+                    {% for post in userPosts %}
+                        <div class="box_img">
+                            <a href=""><img src="{{ asset('/uploads/' ~ post.postsPicture ) | imagine_filter('minProfilePicture') }}" alt="Image du profil de {{post.user.name}}"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

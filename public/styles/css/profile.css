@@ -129,3 +129,13 @@
 .profile_form_wrap form button{
     padding: .5rem .3rem;
 }
+
+/*Back Button*/
+
+.back{
+    padding: .5rem 1rem;
+}
+.back a{
+    color: var(--greyText);
+    font-size: 17px;
+}

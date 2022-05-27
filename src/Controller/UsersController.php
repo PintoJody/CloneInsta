@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Controller;
+
+use App\Entity\Posts;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserProfilePictureType;
+use App\Repository\PostsRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,6 +72,16 @@ class UsersController extends AbstractController
         return $this->render('users/editUser.html.twig', [
             'form' => $form->createView(),
             'formPicture' => $formPictureProfiles->createView(),
+        ]);
+    }
+
+    #[Route('/profile/user/{id}', name: 'app_profile_show', methods: ['GET'])]
+    public function showUserProfile(User $user, PostsRepository $postRepo) : Response
+    {
+        
+        return $this->render('users/show.html.twig', [
+            'userShow' => $user,
+            'userPosts' => $postRepo->findBy(["user" => $user]),
         ]);
     }
 }
