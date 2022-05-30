@@ -46,6 +46,17 @@
                     <p><a href="{{ path('app_profile_show', {'id': post.user.id}) }}">{{ post.user.pseudo }}</a> {{ post.postsDescribe }}</p>
                 </div>
 
+                <div class="community_container">
+                    <a href="{{ path('post_like', {'id': post.id}) }}" class="btn btn-link js-like-link">
+                        {% if app.user and post.isLikedByUser(app.user) %}
+                            <i class="fa-solid fa-heart"></i>
+                        {% else %}
+                            <i class="fa-regular fa-heart"></i>
+                        {% endif %}
+                        <span class="js-likes">{{ post.likes | length }}</span>
+                    </a>
+                </div>
+
                 {# <div id="post_comment_form">
                    {{ form(comment_form_post) }}
                 </div> #}
@@ -79,4 +90,9 @@
         {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('js/like.js') }}"></script>
 {% endblock %}

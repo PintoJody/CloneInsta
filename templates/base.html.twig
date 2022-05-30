@@ -12,9 +12,6 @@
         <link href="{{ asset('styles/css/base.css') }}" rel="stylesheet"/>
         {% block stylesheets %}{% endblock %}
 
-        {% block javascripts %}
-
-        {% endblock %}
     </head>
     <body>
         <nav id="nav_container">
@@ -51,5 +48,6 @@
         {% block body %}{% endblock %}
 
         <script src="https://kit.fontawesome.com/501d33add6.js" crossorigin="anonymous"></script>
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

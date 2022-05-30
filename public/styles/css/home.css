@@ -41,6 +41,16 @@
     border-radius: 10px;
 }
 
+#actu_container #post_actu .community_container{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+#actu_container #post_actu .community_container a{
+    padding: .8rem;
+}
+
 
 #actu_container #post_actu .post_header{
     display: flex;

@@ -75,3 +75,14 @@ ul, li{
     color: black;
     font-size: 1.2rem;
 }
+
+/*Likes*/
+.fa-solid.fa-heart{
+    color: red;
+}
+.fa-regular.fa-heart{
+    color: gray;
+}
+.community_container a{
+    color: black;
+}

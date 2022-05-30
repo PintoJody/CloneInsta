@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Posts;
+use App\Entity\PostLike;
 use App\Form\PostsType;
+use App\Repository\PostLikeRepository;
 use App\Repository\PostsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,6 +102,47 @@ class PostsController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_posts', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /*
+    *Like Post
+    */
+    #[Route('/{id}/like', name: 'post_like', methods: ['GET'])]
+    public function like(Posts $post, PostLikeRepository $likeRepo) : Response
+    {
+        $user = $this->getUser();
+        if(! $user){
+            return $this->json([
+                'code' => 403, 
+                'message' => 'Non autorisé'
+            ], 403);
+        }
+
+        if($post->isLikedByUser($user)){
+            $like = $likeRepo->findOneBy([
+                'post' => $post,
+                'user' => $user
+            ]);
+
+            $likeRepo->remove($like);
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'like supprimé',
+                'likes' => $likeRepo->count(['post' => $post])
+            ], 200);
+        }
+
+        $like = new PostLike();
+        $like->setPost($post)
+             ->setUser($user);
+        $likeRepo->add($like);
+
+        return $this->json([
+            'code' => 200, 
+            'message' => 'Like ajouté',
+            'likes' => $likeRepo->count(['post' => $post])
+        ], 200);
     }
 
 }

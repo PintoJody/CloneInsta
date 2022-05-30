@@ -75,6 +75,10 @@ class UsersController extends AbstractController
         ]);
     }
 
+    /**
+     * Single Profile Page
+     */
+
     #[Route('/profile/user/{id}', name: 'app_profile_show', methods: ['GET'])]
     public function showUserProfile(User $user, PostsRepository $postRepo) : Response
     {

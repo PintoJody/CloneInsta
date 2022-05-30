@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use App\Repository\PostsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -38,10 +39,14 @@ class Posts
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: CommentPost::class)]
     private $commentPosts;
 
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostLike::class)]
+    private $likes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->commentPosts = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function __toString()
@@ -173,5 +178,48 @@ class Posts
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, PostLike>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(PostLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(PostLike $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getPost() === $this) {
+                $like->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * posts liked by user
+     */
+    public function isLikedByUser(User $user) : bool
+    {
+        foreach($this->likes as $like){
+            if($like->getUser() === $user){
+                return true;
+            }
+        }
+        return false;
     }
 }
